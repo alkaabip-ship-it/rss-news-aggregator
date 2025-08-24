@@ -2,56 +2,41 @@
 // مجمع الأخبار العربية المطور
 
 const RSS_FEEDS = [
-    // مصادر الأخبار العربية الرئيسية
-    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/rss/all', category: 'عام' },
-    { name: 'العربية نت', url: 'https://www.alarabiya.net/rss.xml', category: 'عام' },
-    { name: 'بي بي سي عربي', url: 'https://feeds.bbci.co.uk/arabic/rss.xml', category: 'عام' },
-    { name: 'سكاي نيوز عربية', url: 'https://www.skynewsarabia.com/rss', category: 'عام' },
-    { name: 'الإمارات اليوم', url: 'https://www.emaratalyoum.com/rss', category: 'إماراتي' },
-    { name: 'البيان', url: 'https://www.albayan.ae/rss', category: 'إماراتي' },
-    { name: 'الخليج', url: 'https://www.alkhaleej.ae/rss', category: 'إماراتي' },
-    { name: 'وام', url: 'https://wam.ae/ar/rss', category: 'إماراتي' },
-    { name: 'الاتحاد', url: 'https://www.alittihad.ae/rss', category: 'إماراتي' },
-    { name: 'عجمان 24', url: 'https://ajman24.ae/rss', category: 'عجمان' },
-    { name: 'أخبار الإمارات', url: 'https://www.akhbaruae.com/rss', category: 'إماراتي' },
-    { name: 'الرؤية', url: 'https://alroya.ae/rss', category: 'إماراتي' },
-    { name: 'أهل مصر', url: 'https://www.ahlmasrnews.com/rss', category: 'مصري' },
-    { name: 'اليوم السابع', url: 'https://www.youm7.com/rss', category: 'مصري' },
-    { name: 'المصري اليوم', url: 'https://www.almasryalyoum.com/rss', category: 'مصري' },
-    { name: 'الأهرام', url: 'https://www.ahram.org.eg/rss', category: 'مصري' },
-    { name: 'الشرق الأوسط', url: 'https://aawsat.com/rss', category: 'سعودي' },
-    { name: 'عكاظ', url: 'https://www.okaz.com.sa/rss', category: 'سعودي' },
-    { name: 'الرياض', url: 'https://www.alriyadh.com/rss', category: 'سعودي' },
-    { name: 'سبق', url: 'https://sabq.org/rss', category: 'سعودي' },
-    { name: 'الغد', url: 'https://alghad.com/rss', category: 'أردني' },
-    { name: 'الرأي', url: 'https://alrai.com/rss', category: 'أردني' },
-    { name: 'النهار', url: 'https://www.annahar.com/rss', category: 'لبناني' },
-    { name: 'الأخبار', url: 'https://al-akhbar.com/rss', category: 'لبناني' },
-    { name: 'الوطن', url: 'https://alwatan.sy/rss', category: 'سوري' },
-    { name: 'تشرين', url: 'https://tishreen.news.sy/rss', category: 'سوري' },
-    { name: 'الصباح', url: 'https://alsabah.iq/rss', category: 'عراقي' },
-    { name: 'الزمان', url: 'https://www.azzaman.com/rss', category: 'عراقي' },
-    { name: 'المغرب اليوم', url: 'https://www.almaghribtoday.net/rss', category: 'مغربي' },
-    { name: 'هسبريس', url: 'https://www.hespress.com/rss', category: 'مغربي' },
-    { name: 'الشروق', url: 'https://www.echorouk.com/rss', category: 'جزائري' },
-    { name: 'النهار أونلاين', url: 'https://www.ennaharonline.com/rss', category: 'جزائري' },
-    { name: 'الصباح', url: 'https://www.assabah.com.tn/rss', category: 'تونسي' },
-    { name: 'الشروق', url: 'https://www.alchourouk.com/rss', category: 'تونسي' },
-    { name: 'ليبيا المستقبل', url: 'https://www.libya-al-mostakbal.org/rss', category: 'ليبي' },
-    { name: 'بوابة الوسط', url: 'https://www.alwasat.ly/rss', category: 'ليبي' },
-    { name: 'الخرطوم', url: 'https://www.alkhartoum.com/rss', category: 'سوداني' },
-    { name: 'سودان تريبيون', url: 'https://www.sudantribune.net/rss', category: 'سوداني' },
-    { name: 'اليمن الآن', url: 'https://www.yemen-now.com/rss', category: 'يمني' },
-    { name: 'المشهد اليمني', url: 'https://almashhad-alyemeni.com/rss', category: 'يمني' },
-    { name: 'الكويت اليوم', url: 'https://www.kuwait-today.com/rss', category: 'كويتي' },
-    { name: 'الأنباء', url: 'https://www.alanba.com.kw/rss', category: 'كويتي' },
-    { name: 'الوطن البحرين', url: 'https://www.alwatannews.net/rss', category: 'بحريني' },
-    { name: 'أخبار الخليج', url: 'https://www.akhbar-alkhaleej.com/rss', category: 'بحريني' },
-    { name: 'الوطن قطر', url: 'https://www.al-watan.com/rss', category: 'قطري' },
-    { name: 'الراية', url: 'https://www.raya.com/rss', category: 'قطري' },
-    { name: 'عمان', url: 'https://www.omandaily.om/rss', category: 'عماني' },
-    { name: 'الشبيبة', url: 'https://www.shabiba.com/rss', category: 'عماني' }
+    // مصادر France 24
+    { name: 'فرانس 24 - أوروبا', url: 'https://www.france24.com/ar/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7/rss', category: 'أخبار دولية' },
+    { name: 'فرانس 24 - الشرق الأوسط', url: 'https://www.france24.com/ar/%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7/rss', category: 'أخبار دولية' },
+    { name: 'فرانس 24 - أمريكا', url: 'https://www.france24.com/ar/%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7/rss', category: 'أخبار دولية' },
+    { name: 'فرانس 24 - اقتصاد', url: 'https://www.france24.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss', category: 'اقتصاد' },
     
+    // مصادر RT Arabic
+    { name: 'روسيا اليوم', url: 'https://arabic.rt.com/rss/sitemap/', category: 'أخبار دولية' },
+
+    // مصادر الشرق الأوسط
+    { name: 'الشرق الأوسط', url: 'https://aawsat.com/feed', category: 'عام' },
+
+    // مصادر العربية نت
+    { name: 'العربية نت - رئيسية', url: 'https://www.alarabiya.net/feed/rss2/ar.xml', category: 'عام' },
+    { name: 'العربية نت - العالم', url: 'https://www.alarabiya.net/feed/rss2/ar/arab-and-world.xml', category: 'العالم' },
+    { name: 'العربية نت - السعودية', url: 'https://www.alarabiya.net/feed/rss2/ar/saudi-today.xml', category: 'السعودية' },
+    { name: 'العربية نت - منوعات', url: 'https://www.alarabiya.net/feed/rss2/ar/variety.xml', category: 'منوعات' },
+
+    // مصادر النهار
+    { name: 'النهار', url: 'https://www.annahar.com/rss', category: 'لبنان' },
+
+    // مصادر الجزيرة نت
+    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9', category: 'عام' },
+
+    // مصادر متنوعة من RSS.app
+    { name: 'مصدر متنوع 1', url: 'https://rss.app/feeds/XGwiyZWrb82rn9gb.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 2', url: 'https://rss.app/feeds/1O6SebJ3w0cuWkQ7.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 3', url: 'https://rss.app/feeds/L85xGTh6FCRTiZYk.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 4', url: 'https://rss.app/feeds/1rxW4wPrOe1WW2XA.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 5', url: 'https://rss.app/feeds/24U9HI26SOIO9gnz.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 6', url: 'https://rss.app/feeds/txvIw0FFUeTmJRE8.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 7', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 8', url: 'https://rss.app/feeds/6DK10x7VU3Tbw66N.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 9', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'متنوع' },
+    { name: 'مصدر متنوع 10', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'متنوع' }
 ];
 
 let allNews = [];
@@ -61,7 +46,7 @@ let currentSort = 'newest';
 let isLoading = false;
 
 // DOM Elements
-const newsContainer = document.getElementById('news-container');
+const newsContainer = document.getElementById('news-container' );
 const loadingElement = document.getElementById('loading');
 const refreshBtn = document.getElementById('refresh-btn');
 const categoryFilter = document.getElementById('category-filter');
@@ -117,7 +102,7 @@ async function loadNews() {
     showLoading(true);
     allNews = [];
     
-    const feedsToLoad = RSS_FEEDS.slice(0, 50); // Load first 50 sources to avoid overwhelming
+    const feedsToLoad = RSS_FEEDS; // Load all new sources
     
     try {
         const promises = feedsToLoad.map(feed => fetchRSSFeed(feed));
@@ -148,7 +133,8 @@ async function loadNews() {
 
 async function fetchRSSFeed(feed) {
     try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feed.url)}`;
+        // Using a CORS proxy to fetch feeds from the browser
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feed.url )}`;
         const response = await fetch(proxyUrl);
         
         if (!response.ok) {
@@ -169,7 +155,6 @@ async function fetchRSSFeed(feed) {
             const pubDate = item.querySelector('pubDate')?.textContent || new Date().toISOString();
             const imageUrl = extractImageFromDescription(description) || item.querySelector('enclosure')?.getAttribute('url') || '';
             
-            // Extract first 4 paragraphs from description
             const cleanDescription = cleanHtmlTags(description);
             const paragraphs = extractParagraphs(cleanDescription, 4);
             
@@ -208,6 +193,7 @@ function extractParagraphs(text, count = 4) {
 }
 
 function filterNews() {
+    currentCategory = categoryFilter.value;
     filteredNews = allNews.filter(news => {
         const categoryMatch = currentCategory === 'الكل' || news.category === currentCategory;
         const searchMatch = searchInput.value === '' || 
@@ -245,7 +231,7 @@ function searchNews() {
 
 function displayNews() {
     if (filteredNews.length === 0) {
-        newsContainer.innerHTML = '<div class="no-news">لا توجد أخبار متاحة حالياً</div>';
+        newsContainer.innerHTML = '<div class="no-news">لا توجد أخبار متاحة حالياً تطابق معايير البحث.</div>';
         return;
     }
     
@@ -271,21 +257,19 @@ function displayNews() {
 
 function formatDate(date) {
     const now = new Date();
-    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+    const diffInSeconds = Math.floor((now - date) / 1000);
     
-    if (diffInHours < 1) {
-        return 'منذ أقل من ساعة';
-    } else if (diffInHours < 24) {
-        return `منذ ${diffInHours} ساعة`;
-    } else {
-        return date.toLocaleDateString('ar-SA', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
+    if (diffInSeconds < 60) return 'الآن';
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `منذ ${diffInMinutes} دقيقة`;
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `منذ ${diffInHours} ساعة`;
+
+    return date.toLocaleDateString('ar-SA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
 function showLoading(show) {
@@ -297,17 +281,9 @@ function showError(message) {
     newsContainer.innerHTML = `<div class="error-message">${message}</div>`;
 }
 
-// Category filter change handler
-categoryFilter.addEventListener('change', function() {
-    currentCategory = this.value;
-    filterNews();
-});
-
-// Sort change handler
-sortSelect.addEventListener('change', function() {
-    currentSort = this.value;
-    sortNews();
-});
+// Event Listeners for filters
+categoryFilter.addEventListener('change', filterNews);
+sortSelect.addEventListener('change', sortNews);
 
 // Export to PDF functionality
 function exportToPDF() {
@@ -325,7 +301,7 @@ function exportToPDF() {
             <style>
                 body { font-family: 'Noto Sans Arabic', Arial, sans-serif; direction: rtl; }
                 .header { text-align: center; margin-bottom: 30px; }
-                .news-item { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; }
+                .news-item { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; page-break-inside: avoid; }
                 .news-title { font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
                 .news-meta { font-size: 12px; color: #666; margin-bottom: 10px; }
                 .news-description { line-height: 1.6; }
@@ -395,7 +371,6 @@ function addNewSource() {
     displaySourcesList();
     populateCategoryFilter();
     
-    // Clear form
     document.getElementById('source-name').value = '';
     document.getElementById('source-url').value = '';
     document.getElementById('source-category').value = '';
@@ -411,3 +386,4 @@ function removeSource(index) {
 
 // Auto-refresh every 30 minutes
 setInterval(loadNews, 30 * 60 * 1000);
+
