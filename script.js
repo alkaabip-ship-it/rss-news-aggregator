@@ -45,18 +45,6 @@ const RSS_FEEDS = [
     { name: 'فرانس 24 - أمريكا', url: 'https://www.france24.com/ar/%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7/rss', category: 'أمريكا' },
     { name: 'فرانس 24 - اقتصاد', url: 'https://www.france24.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss', category: 'اقتصاد' },
 
-    // مصادر RSS.app إضافية
-    { name: 'مصدر 11', url: 'https://rss.app/feeds/XGwiyZWrb82rn9gb.xml', category: 'عام' },
-    { name: 'مصدر 12', url: 'https://rss.app/feeds/1O6SebJ3w0cuWkQ7.xml', category: 'عام' },
-    { name: 'مصدر 13', url: 'https://rss.app/feeds/L85xGTh6FCRTiZYk.xml', category: 'عام' },
-    { name: 'مصدر 14', url: 'https://rss.app/feeds/1rxW4wPrOe1WW2XA.xml', category: 'عام' },
-    { name: 'مصدر 15', url: 'https://rss.app/feeds/24U9HI26SOIO9gnz.xml', category: 'عام' },
-    { name: 'مصدر 16', url: 'https://rss.app/feeds/txvIw0FFUeTmJRE8.xml', category: 'عام' },
-    { name: 'مصدر 17', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'عام' },
-    { name: 'مصدر 18', url: 'https://rss.app/feeds/6DK10x7VU3Tbw66N.xml', category: 'عام' },
-    { name: 'مصدر 19', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'عام' },
-    { name: 'مصدر 20', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'عام' },
-
     // مصادر إضافية
     { name: 'RT Arabic - خريطة الموقع', url: 'https://arabic.rt.com/rss/sitemap/', category: 'أخبار دولية' },
     { name: 'عكاظ', url: 'https://aawsat.com/feed', category: 'عام' },
