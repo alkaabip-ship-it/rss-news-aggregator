@@ -36,7 +36,35 @@ const RSS_FEEDS = [
     { name: 'مصدر متنوع 7', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'متنوع' },
     { name: 'مصدر متنوع 8', url: 'https://rss.app/feeds/6DK10x7VU3Tbw66N.xml', category: 'متنوع' },
     { name: 'مصدر متنوع 9', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'متنوع' },
-    { name: 'مصدر متنوع 10', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'متنوع' }
+  ,
+
+    // مصادر France 24 الإضافية
+    { name: 'فرانس 24 - أوروبا', url: 'https://www.france24.com/ar/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7/rss', category: 'أوروبا' },
+    { name: 'فرانس 24 - الشرق الأوسط', url: 'https://www.france24.com/ar/%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7/rss', category: 'الشرق الأوسط' },
+    { name: 'فرانس 24 - أمريكا', url: 'https://www.france24.com/ar/%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7/rss', category: 'أمريكا' },
+    { name: 'فرانس 24 - اقتصاد', url: 'https://www.france24.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss', category: 'اقتصاد' },
+
+    // مصادر RSS.app إضافية
+    { name: 'مصدر 11', url: 'https://rss.app/feeds/XGwiyZWrb82rn9gb.xml', category: 'عام' },
+    { name: 'مصدر 12', url: 'https://rss.app/feeds/1O6SebJ3w0cuWkQ7.xml', category: 'عام' },
+    { name: 'مصدر 13', url: 'https://rss.app/feeds/L85xGTh6FCRTiZYk.xml', category: 'عام' },
+    { name: 'مصدر 14', url: 'https://rss.app/feeds/1rxW4wPrOe1WW2XA.xml', category: 'عام' },
+    { name: 'مصدر 15', url: 'https://rss.app/feeds/24U9HI26SOIO9gnz.xml', category: 'عام' },
+    { name: 'مصدر 16', url: 'https://rss.app/feeds/txvIw0FFUeTmJRE8.xml', category: 'عام' },
+    { name: 'مصدر 17', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'عام' },
+    { name: 'مصدر 18', url: 'https://rss.app/feeds/6DK10x7VU3Tbw66N.xml', category: 'عام' },
+    { name: 'مصدر 19', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'عام' },
+    { name: 'مصدر 20', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'عام' },
+
+    // مصادر إضافية
+    { name: 'RT Arabic - خريطة الموقع', url: 'https://arabic.rt.com/rss/sitemap/', category: 'أخبار دولية' },
+    { name: 'عكاظ', url: 'https://aawsat.com/feed', category: 'عام' },
+    { name: 'العربية - الرئيسية', url: 'https://www.alarabiya.net/feed/rss2/ar.xml', category: 'عام' },
+    { name: 'العربية - العالم العربي', url: 'https://www.alarabiya.net/feed/rss2/ar/arab-and-world.xml', category: 'العالم العربي' },
+    { name: 'العربية - السعودية اليوم', url: 'https://www.alarabiya.net/feed/rss2/ar/saudi-today.xml', category: 'السعودية' },
+    { name: 'العربية - منوعات', url: 'https://www.alarabiya.net/feed/rss2/ar/variety.xml', category: 'منوعات' },
+    { name: 'النهار', url: 'https://www.annahar.com/rss', category: 'لبنان' },
+    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9', category: 'أخبار دولية' }  { name: 'مصدر متنوع 10', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'متنوع' }
 ];
 
 let allNews = [];
