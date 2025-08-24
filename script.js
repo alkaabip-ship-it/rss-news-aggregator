@@ -51,6 +51,7 @@ const RSS_FEEDS = [
     { name: 'الراية', url: 'https://www.raya.com/rss', category: 'قطري' },
     { name: 'عمان', url: 'https://www.omandaily.om/rss', category: 'عماني' },
     { name: 'الشبيبة', url: 'https://www.shabiba.com/rss', category: 'عماني' }
+    
 ];
 
 let allNews = [];
