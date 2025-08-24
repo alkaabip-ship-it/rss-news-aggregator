@@ -27,16 +27,16 @@ const RSS_FEEDS = [
     { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9', category: 'عام' },
 
     // مصادر متنوعة من RSS.app
-    { name: 'الإمارات اليوم ', url: 'https://rss.app/feeds/XGwiyZWrb82rn9gb.xml', category: 'الإمارات' },
+    { name: 'الإمارات اليوم ', url: 'https://rss.app/feeds/XGwiyZWrb82rn9gb.xml', category: 'عام' },
     { name: 'السياسي', url: 'https://rss.app/feeds/1O6SebJ3w0cuWkQ7.xml', category: 'عام' },
     { name: 'إرم نيوز', url: 'https://rss.app/feeds/L85xGTh6FCRTiZYk.xml', category: 'عام' },
     { name: 'مونتيكارلو', url: 'https://rss.app/feeds/1rxW4wPrOe1WW2XA.xml', category: 'عام' },
-    { name: 'صوت بيروت', url: 'https://rss.app/feeds/24U9HI26SOIO9gnz.xml', category: 'لبنان' },
-    { name: 'موقع الدفاع العربي', url: 'https://rss.app/feeds/txvIw0FFUeTmJRE8.xml', category: 'دفاع' },
-    { name: 'إيران انترناشيونال', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'إيران' },
+    { name: 'صوت بيروت', url: 'https://rss.app/feeds/24U9HI26SOIO9gnz.xml', category: 'عام' },
+    { name: 'موقع الدفاع العربي', url: 'https://rss.app/feeds/txvIw0FFUeTmJRE8.xml', category: 'عام' },
+    { name: 'إيران انترناشيونال', url: 'https://rss.app/feeds/APC0dxXnwWfj2h92.xml', category: 'عام' },
     { name: 'الخليج', url: 'https://rss.app/feeds/6DK10x7VU3Tbw66N.xml', category: 'عام' },
-    { name: 'الخليج تايمز', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'متنوع' },
-    { name: 'نبض', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'متنوع' },
+    { name: 'الخليج تايمز', url: 'https://rss.app/feeds/MrvRODHMyW0NVFpF.xml', category: 'عام' },
+    { name: 'نبض', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'عام' },
   ,
 
     // مصادر France 24 الإضافية
