@@ -198,7 +198,7 @@ function cleanText(text) {
 
 // جلب جميع الأخبار
 async function fetchAllNews() {
-    const newsContainer = document.getElementById('newsContainer');
+    const news-container = document.getElementById('newsContainer');
     newsContainer.innerHTML = '<div class="loading">جاري تحميل الأخبار...</div>';
     
     allNews = [];
@@ -221,7 +221,7 @@ async function fetchAllNews() {
 
 // عرض الأخبار
 function displayNews(newsArray) {
-    const newsContainer = document.getElementById('newsContainer');
+    const news-container = document.getElementById('newsContainer');
     
     if (newsArray.length === 0) {
         newsContainer.innerHTML = '<div class="no-news">لا توجد أخبار متاحة حالياً</div>';
@@ -366,11 +366,28 @@ document.addEventListener('DOMContentLoaded', function() {
     displayCustomSources();
     
     // ربط الأحداث
-    document.getElementById('refreshBtn').addEventListener('click', fetchAllNews);
-    document.getElementById('sourceFilter').addEventListener('change', (e) => applyFilter(e.target.value));
-    document.getElementById('sortSelect').addEventListener('change', (e) => sortNews(e.target.value));
-    document.getElementById('addSourceBtn').addEventListener('click', addCustomSource);
+    document.getElementById('refresh-btn').addEventListener('click', fetchAllNews);
+    document.getElementById('source-filter').addEventListener('change', (e) => applyFilter(e.target.value));
+    document.getElementById('sort-select').addEventListener('change', (e) => sortNews(e.target.value));
+    document.getElementById('add-source-btn').addEventListener('click', addCustomSource);
     
     // جلب الأخبار عند تحميل الصفحة
     fetchAllNews();
+});
+
+
+// إدارة النافذة المنبثقة
+document.getElementById('manage-sources-btn').addEventListener('click', function() {
+    document.getElementById('source-management').classList.remove('hidden');
+});
+
+document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('source-management').classList.add('hidden');
+});
+
+// إغلاق النافذة عند النقر خارجها
+document.getElementById('source-management').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.add('hidden');
+    }
 });
