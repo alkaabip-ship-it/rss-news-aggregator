@@ -413,6 +413,6 @@ function removeSource(index) {
     }
 }
 
-// Auto-refresh every 5 minutes
+// Auto-refresh every 30 minutes
 setInterval(loadNews, 30 * 60 * 1000);
 
