@@ -1,227 +1,376 @@
-// RSS News Aggregator JavaScript
+// RSS News Aggregator JavaScript - Arabic News Sources
 
-// RSS Feed URLs - Popular Arabic and International News Sources
+// مصادر الأخبار العربية المتخصصة
 const RSS_FEEDS = [
+    // أخبار عامة عربية
     {
         name: 'الجزيرة نت',
         url: 'https://www.aljazeera.net/rss/all',
-        category: 'arabic'
+        category: 'عام',
+        country: 'قطر'
     },
     {
         name: 'العربية نت',
         url: 'https://www.alarabiya.net/rss.xml',
-        category: 'arabic'
+        category: 'عام',
+        country: 'السعودية'
     },
     {
-        name: 'BBC Arabic',
-        url: 'https://feeds.bbci.co.uk/arabic/rss.xml',
-        category: 'arabic'
+        name: 'سكاي نيوز عربية',
+        url: 'https://www.skynewsarabia.com/rss',
+        category: 'عام',
+        country: 'الإمارات'
     },
     {
-        name: 'CNN Arabic',
+        name: 'CNN بالعربية',
         url: 'https://arabic.cnn.com/rss',
-        category: 'arabic'
+        category: 'عام',
+        country: 'دولي'
     },
     {
-        name: 'Reuters',
-        url: 'https://feeds.reuters.com/reuters/topNews',
-        category: 'international'
+        name: 'بي بي سي عربي',
+        url: 'https://feeds.bbci.co.uk/arabic/rss.xml',
+        category: 'عام',
+        country: 'دولي'
+    },
+    // أخبار الإمارات وعجمان
+    {
+        name: 'وكالة أنباء الإمارات',
+        url: 'https://wam.ae/ar/rss',
+        category: 'إمارات',
+        country: 'الإمارات'
     },
     {
-        name: 'BBC News',
-        url: 'https://feeds.bbci.co.uk/news/rss.xml',
-        category: 'international'
+        name: 'البيان الإماراتية',
+        url: 'https://www.albayan.ae/rss',
+        category: 'إمارات',
+        country: 'الإمارات'
+    },
+    {
+        name: 'الخليج الإماراتية',
+        url: 'https://www.alkhaleej.ae/rss',
+        category: 'إمارات',
+        country: 'الإمارات'
+    },
+    {
+        name: 'الاتحاد الإماراتية',
+        url: 'https://www.alittihad.ae/rss',
+        category: 'إمارات',
+        country: 'الإمارات'
+    },
+    // أخبار سياسية عربية
+    {
+        name: 'الشرق الأوسط',
+        url: 'https://aawsat.com/rss',
+        category: 'سياسة',
+        country: 'السعودية'
+    },
+    {
+        name: 'الحياة',
+        url: 'https://www.alhayat.com/rss',
+        category: 'سياسة',
+        country: 'لبنان'
+    },
+    {
+        name: 'الأهرام',
+        url: 'https://www.ahram.org.eg/rss',
+        category: 'سياسة',
+        country: 'مصر'
+    },
+    // أخبار عالمية بالعربية
+    {
+        name: 'فرانس 24 عربي',
+        url: 'https://www.france24.com/ar/rss',
+        category: 'عالمي',
+        country: 'فرنسا'
+    },
+    {
+        name: 'دويتشه فيله عربي',
+        url: 'https://www.dw.com/ar/rss',
+        category: 'عالمي',
+        country: 'ألمانيا'
+    },
+    {
+        name: 'روسيا اليوم عربي',
+        url: 'https://arabic.rt.com/rss',
+        category: 'عالمي',
+        country: 'روسيا'
     }
 ];
 
-// CORS Proxy for RSS feeds
-const CORS_PROXY = 'https://api.allorigins.win/get?url=';
+// متغيرات عامة
+let allNews = [];
+let currentSort = 'date';
+let currentFilter = 'all';
+let customSources = JSON.parse(localStorage.getItem('customSources')) || [];
 
-class NewsAggregator {
-    constructor() {
-        this.newsContainer = document.getElementById('news-container');
-        this.loadingElement = document.getElementById('loading');
-        this.refreshBtn = document.getElementById('refresh-btn');
-        this.sourceFilter = document.getElementById('source-filter');
-        this.allNews = [];
+// دمج المصادر المخصصة مع المصادر الافتراضية
+function getAllSources() {
+    return [...RSS_FEEDS, ...customSources];
+}
+
+// تحديث قائمة المصادر في الواجهة
+function updateSourcesList() {
+    const sourceSelect = document.getElementById('sourceFilter');
+    sourceSelect.innerHTML = '<option value="all">جميع المصادر</option>';
+    
+    const categories = [...new Set(getAllSources().map(feed => feed.category))];
+    categories.forEach(category => {
+        sourceSelect.innerHTML += `<option value="${category}">${category}</option>`;
+    });
+    
+    getAllSources().forEach(feed => {
+        sourceSelect.innerHTML += `<option value="${feed.name}">${feed.name}</option>`;
+    });
+}
+
+// جلب الأخبار من مصدر واحد
+async function fetchFeedNews(feed) {
+    try {
+        const proxyUrl = 'https://api.allorigins.win/get?url=';
+        const response = await fetch(proxyUrl + encodeURIComponent(feed.url));
+        const data = await response.json();
         
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
-        this.populateSourceFilter();
-        this.loadNews();
-    }
-
-    setupEventListeners() {
-        this.refreshBtn.addEventListener('click', () => this.loadNews());
-        this.sourceFilter.addEventListener('change', () => this.filterNews());
-    }
-
-    populateSourceFilter() {
-        RSS_FEEDS.forEach(feed => {
-            const option = document.createElement('option');
-            option.value = feed.name;
-            option.textContent = feed.name;
-            this.sourceFilter.appendChild(option);
-        });
-    }
-
-    async loadNews() {
-        this.showLoading();
-        this.allNews = [];
-
-        const promises = RSS_FEEDS.map(feed => this.fetchFeed(feed));
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
         
-        try {
-            await Promise.allSettled(promises);
-            this.sortNewsByDate();
-            this.displayNews();
-        } catch (error) {
-            console.error('Error loading news:', error);
-            this.showError();
-        }
-    }
-
-    async fetchFeed(feed) {
-        try {
-            const response = await fetch(`${CORS_PROXY}${encodeURIComponent(feed.url)}`);
-            const data = await response.json();
-            
-            if (data.contents) {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
-                const items = xmlDoc.querySelectorAll('item');
+        const items = xmlDoc.querySelectorAll('item');
+        const news = [];
+        
+        items.forEach((item, index) => {
+            if (index < 10) { // أخذ أول 10 أخبار من كل مصدر
+                const title = item.querySelector('title')?.textContent || '';
+                const description = item.querySelector('description')?.textContent || '';
+                const link = item.querySelector('link')?.textContent || '';
+                const pubDate = item.querySelector('pubDate')?.textContent || '';
+                const imageUrl = extractImageFromDescription(description) || 
+                             item.querySelector('enclosure')?.getAttribute('url') || 
+                             item.querySelector('media\:thumbnail')?.getAttribute('url') || 
+                             'https://via.placeholder.com/300x200?text=لا+توجد+صورة';
                 
-                items.forEach(item => {
-                    const article = this.parseArticle(item, feed);
-                    if (article) {
-                        this.allNews.push(article);
-                    }
+                // استخراج أول 4 فقرات من الوصف
+                const paragraphs = extractParagraphs(description);
+                
+                news.push({
+                    title: cleanText(title),
+                    description: cleanText(description),
+                    paragraphs: paragraphs,
+                    link: link,
+                    pubDate: new Date(pubDate),
+                    source: feed.name,
+                    category: feed.category,
+                    country: feed.country,
+                    imageUrl: imageUrl
                 });
             }
-        } catch (error) {
-            console.error(`Error fetching ${feed.name}:`, error);
-        }
-    }
-
-    parseArticle(item, feed) {
-        try {
-            const title = item.querySelector('title')?.textContent?.trim();
-            const link = item.querySelector('link')?.textContent?.trim();
-            const description = item.querySelector('description')?.textContent?.trim();
-            const pubDate = item.querySelector('pubDate')?.textContent?.trim();
-            
-            if (!title || !link) return null;
-
-            return {
-                title: this.cleanText(title),
-                link: link,
-                description: this.cleanText(description) || 'لا يوجد وصف متاح',
-                pubDate: pubDate ? new Date(pubDate) : new Date(),
-                source: feed.name,
-                category: feed.category
-            };
-        } catch (error) {
-            console.error('Error parsing article:', error);
-            return null;
-        }
-    }
-
-    cleanText(text) {
-        if (!text) return '';
-        return text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
-    }
-
-    sortNewsByDate() {
-        this.allNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-    }
-
-    displayNews() {
-        this.hideLoading();
+        });
         
-        if (this.allNews.length === 0) {
-            this.newsContainer.innerHTML = '<p class="no-news">لا توجد أخبار متاحة حالياً</p>';
-            return;
-        }
-
-        const newsHTML = this.allNews.map(article => this.createArticleHTML(article)).join('');
-        this.newsContainer.innerHTML = newsHTML;
-    }
-
-    createArticleHTML(article) {
-        const formattedDate = this.formatDate(article.pubDate);
-        const truncatedDescription = this.truncateText(article.description, 150);
-        
-        return `
-            <article class="news-article">
-                <div class="news-meta">
-                    <span class="news-source">${article.source}</span>
-                    <span class="news-date">${formattedDate}</span>
-                </div>
-                <h3><a href="${article.link}" target="_blank" rel="noopener">${article.title}</a></h3>
-                <p class="news-description">${truncatedDescription}</p>
-                <a href="${article.link}" target="_blank" rel="noopener" class="read-more">اقرأ المزيد</a>
-            </article>
-        `;
-    }
-
-    formatDate(date) {
-        const now = new Date();
-        const diffTime = Math.abs(now - date);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
-        if (diffDays === 1) {
-            return 'اليوم';
-        } else if (diffDays === 2) {
-            return 'أمس';
-        } else if (diffDays <= 7) {
-            return `منذ ${diffDays} أيام`;
-        } else {
-            return date.toLocaleDateString('ar-SA');
-        }
-    }
-
-    truncateText(text, maxLength) {
-        if (text.length <= maxLength) return text;
-        return text.substr(0, maxLength) + '...';
-    }
-
-    filterNews() {
-        const selectedSource = this.sourceFilter.value;
-        
-        if (selectedSource === 'all') {
-            this.displayNews();
-            return;
-        }
-
-        const filteredNews = this.allNews.filter(article => article.source === selectedSource);
-        const newsHTML = filteredNews.map(article => this.createArticleHTML(article)).join('');
-        
-        if (filteredNews.length === 0) {
-            this.newsContainer.innerHTML = '<p class="no-news">لا توجد أخبار من هذا المصدر</p>';
-        } else {
-            this.newsContainer.innerHTML = newsHTML;
-        }
-    }
-
-    showLoading() {
-        this.loadingElement.classList.remove('hidden');
-        this.newsContainer.innerHTML = '';
-    }
-
-    hideLoading() {
-        this.loadingElement.classList.add('hidden');
-    }
-
-    showError() {
-        this.hideLoading();
-        this.newsContainer.innerHTML = '<p class="error">حدث خطأ في تحميل الأخبار. يرجى المحاولة مرة أخرى.</p>';
+        return news;
+    } catch (error) {
+        console.error(`خطأ في جلب الأخبار من ${feed.name}:`, error);
+        return [];
     }
 }
 
-// Initialize the news aggregator when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    new NewsAggregator();
+// استخراج الصورة من الوصف
+function extractImageFromDescription(description) {
+    const imgRegex = /<img[^>]+src="([^"]+)"/i;
+    const match = description.match(imgRegex);
+    return match ? match[1] : null;
+}
+
+// استخراج أول 4 فقرات من النص
+function extractParagraphs(text) {
+    // إزالة HTML tags
+    const cleanText = text.replace(/<[^>]*>/g, '');
+    
+    // تقسيم النص إلى جمل
+    const sentences = cleanText.split(/[.!?]/).filter(s => s.trim().length > 20);
+    
+    // أخذ أول 4 جمل
+    return sentences.slice(0, 4).map(s => s.trim()).filter(s => s.length > 0);
+}
+
+// تنظيف النص
+function cleanText(text) {
+    return text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '').trim();
+}
+
+// جلب جميع الأخبار
+async function fetchAllNews() {
+    const newsContainer = document.getElementById('newsContainer');
+    newsContainer.innerHTML = '<div class="loading">جاري تحميل الأخبار...</div>';
+    
+    allNews = [];
+    const sources = getAllSources();
+    
+    // جلب الأخبار من جميع المصادر بشكل متوازي
+    const promises = sources.map(feed => fetchFeedNews(feed));
+    const results = await Promise.all(promises);
+    
+    // دمج جميع الأخبار
+    results.forEach(newsArray => {
+        allNews = allNews.concat(newsArray);
+    });
+    
+    // ترتيب الأخبار حسب التاريخ (الأحدث أولاً)
+    allNews.sort((a, b) => b.pubDate - a.pubDate);
+    
+    displayNews(allNews);
+}
+
+// عرض الأخبار
+function displayNews(newsArray) {
+    const newsContainer = document.getElementById('newsContainer');
+    
+    if (newsArray.length === 0) {
+        newsContainer.innerHTML = '<div class="no-news">لا توجد أخبار متاحة حالياً</div>';
+        return;
+    }
+    
+    newsContainer.innerHTML = newsArray.map(news => `
+        <article class="news-card">
+            <div class="news-image">
+                <img src="${news.imageUrl}" alt="${news.title}" onerror="this.src='https://via.placeholder.com/300x200?text=لا+توجد+صورة'">
+            </div>
+            <div class="news-content">
+                <h2 class="news-title">${news.title}</h2>
+                <div class="news-meta">
+                    <span class="news-source">${news.source}</span>
+                    <span class="news-category">${news.category}</span>
+                    <span class="news-date">${formatDate(news.pubDate)}</span>
+                </div>
+                <div class="news-paragraphs">
+                    ${news.paragraphs.map(p => `<p>${p}</p>`).join('')}
+                </div>
+                <a href="${news.link}" target="_blank" class="read-more">اقرأ المزيد</a>
+            </div>
+        </article>
+    `).join('');
+}
+
+// تنسيق التاريخ
+function formatDate(date) {
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) {
+        return 'منذ يوم واحد';
+    } else if (diffDays < 7) {
+        return `منذ ${diffDays} أيام`;
+    } else {
+        return date.toLocaleDateString('ar-SA');
+    }
+}
+
+// ترتيب الأخبار
+function sortNews(sortType) {
+    currentSort = sortType;
+    let sortedNews = [...allNews];
+    
+    switch (sortType) {
+        case 'date':
+            sortedNews.sort((a, b) => b.pubDate - a.pubDate);
+            break;
+        case 'source':
+            sortedNews.sort((a, b) => a.source.localeCompare(b.source, 'ar'));
+            break;
+        case 'category':
+            sortedNews.sort((a, b) => a.category.localeCompare(b.category, 'ar'));
+            break;
+    }
+    
+    displayNews(filterNews(sortedNews));
+}
+
+// فلترة الأخبار
+function filterNews(newsArray = allNews) {
+    if (currentFilter === 'all') {
+        return newsArray;
+    }
+    
+    return newsArray.filter(news => {
+        // فلترة خاصة لأخبار عجمان
+        if (currentFilter === 'عجمان') {
+            return news.title.includes('عجمان') || 
+                   news.title.includes('حاكم عجمان') ||
+                   news.title.includes('ولي عهد عجمان') ||
+                   news.description.includes('عجمان');
+        }
+        
+        return news.category === currentFilter || news.source === currentFilter;
+    });
+}
+
+// تطبيق الفلتر
+function applyFilter(filterType) {
+    currentFilter = filterType;
+    const filteredNews = filterNews();
+    displayNews(filteredNews);
+}
+
+// إضافة مصدر جديد
+function addCustomSource() {
+    const name = document.getElementById('sourceName').value.trim();
+    const url = document.getElementById('sourceUrl').value.trim();
+    const category = document.getElementById('sourceCategory').value.trim();
+    const country = document.getElementById('sourceCountry').value.trim();
+    
+    if (!name || !url || !category || !country) {
+        alert('يرجى ملء جميع الحقول');
+        return;
+    }
+    
+    const newSource = { name, url, category, country };
+    customSources.push(newSource);
+    localStorage.setItem('customSources', JSON.stringify(customSources));
+    
+    // إعادة تعيين النموذج
+    document.getElementById('addSourceForm').reset();
+    
+    // تحديث قائمة المصادر
+    updateSourcesList();
+    displayCustomSources();
+    
+    alert('تم إضافة المصدر بنجاح!');
+}
+
+// حذف مصدر مخصص
+function deleteCustomSource(index) {
+    if (confirm('هل أنت متأكد من حذف هذا المصدر؟')) {
+        customSources.splice(index, 1);
+        localStorage.setItem('customSources', JSON.stringify(customSources));
+        displayCustomSources();
+        updateSourcesList();
+    }
+}
+
+// عرض المصادر المخصصة
+function displayCustomSources() {
+    const container = document.getElementById('customSourcesList');
+    if (!container) return;
+    
+    container.innerHTML = customSources.map((source, index) => `
+        <div class="custom-source-item">
+            <span>${source.name} - ${source.category}</span>
+            <button onclick="deleteCustomSource(${index})" class="delete-btn">حذف</button>
+        </div>
+    `).join('');
+}
+
+// تهيئة الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // تحديث قائمة المصادر
+    updateSourcesList();
+    displayCustomSources();
+    
+    // ربط الأحداث
+    document.getElementById('refreshBtn').addEventListener('click', fetchAllNews);
+    document.getElementById('sourceFilter').addEventListener('change', (e) => applyFilter(e.target.value));
+    document.getElementById('sortSelect').addEventListener('change', (e) => sortNews(e.target.value));
+    document.getElementById('addSourceBtn').addEventListener('click', addCustomSource);
+    
+    // جلب الأخبار عند تحميل الصفحة
+    fetchAllNews();
 });
