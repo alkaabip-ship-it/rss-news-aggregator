@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجمع الأخبار العربية - RSS News Aggregator</title>
+    <title>📰 مجمع الأخبار العربية - RSS News Aggregator</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -11,7 +11,7 @@
     <header>
         <div class="container">
             <h1>📰 مجمع الأخبار العربية</h1>
-            <p>آخر الأخبار من مصادر عربية موثوقة</p>
+            <p>آخر الأخبار من مصادر موثوقة متعددة</p>
         </div>
     </header>
 
@@ -21,83 +21,80 @@
             <div class="control-group">
                 <button id="refresh-btn" class="btn primary">🔄 تحديث الأخبار</button>
                 <button id="manage-sources-btn" class="btn secondary">⚙️ إدارة المصادر</button>
+                <button id="export-btn" class="btn secondary">📄 تصدير تقرير</button>
             </div>
-            
+
             <div class="filter-group">
-                <select id="source-filter">
-                    <option value="all">جميع المصادر</option>
-                    <option value="عجمان">أخبار عجمان</option>
-                    <option value="عام">أخبار عامة</option>
-                    <option value="سياسة">أخبار سياسية</option>
-                    <option value="عالمي">أخبار عالمية</option>
-                    <option value="إمارات">أخبار الإمارات</option>
-                </select>
-                
-                <select id="sort-select">
-                    <option value="date">ترتيب حسب التاريخ</option>
-                    <option value="source">ترتيب حسب المصدر</option>
-                    <option value="category">ترتيب حسب التصنيف</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- نموذج إدارة المصادر -->
-        <div id="source-management" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>إدارة مصادر الأخبار</h2>
-                    <button id="close-modal" class="close-btn">&times;</button>
+                <div class="filter-item">
+                    <label for="search-input">🔍 البحث:</label>
+                    <input type="text" id="search-input" placeholder="ابحث في الأخبار...">
                 </div>
                 
-                <div class="modal-body">
-                    <!-- إضافة مصدر جديد -->
-                    <div class="add-source-section">
-                        <h3>إضافة مصدر جديد</h3>
-                        <form id="add-source-form">
-                            <div class="form-group">
-                                <label for="source-name">اسم المصدر:</label>
-                                <input type="text" id="source-name" placeholder="مثال: الجزيرة نت" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="source-url">RSS URL:</label>
-                                <input type="url" id="source-url" placeholder="https://example.com/rss" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="source-category">التصنيف:</label>
-                                <input type="text" id="source-category" placeholder="مثال: عام, سياسة, عالمي" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="source-country">الدولة:</label>
-                                <input type="text" id="source-country" placeholder="مثال: الإمارات, قطر" required>
-                            </div>
-                            <button type="button" id="add-source-btn" class="btn primary">إضافة المصدر</button>
-                        </form>
-                    </div>
-                    
-                    <!-- قائمة المصادر المخصصة -->
-                    <div class="custom-sources-section">
-                        <h3>المصادر المخصصة</h3>
-                        <div id="custom-sources-list"></div>
-                    </div>
+                <div class="filter-item">
+                    <label for="category-filter">📂 التصنيف:</label>
+                    <select id="category-filter">
+                        <option value="الكل">جميع التصنيفات</option>
+                    </select>
+                </div>
+                
+                <div class="filter-item">
+                    <label for="sort-select">📊 الترتيب:</label>
+                    <select id="sort-select">
+                        <option value="newest">الأحدث أولاً</option>
+                        <option value="oldest">الأقدم أولاً</option>
+                        <option value="source">حسب المصدر</option>
+                    </select>
                 </div>
             </div>
         </div>
 
-        <!-- منطقة التحميل -->
-        <div id="loading" class="loading hidden">
+        <!-- حالة التحميل -->
+        <div id="loading" class="loading">
             <div class="spinner"></div>
             <p>جاري تحميل الأخبار...</p>
         </div>
 
-        <!-- منطقة عرض الأخبار -->
+        <!-- عرض الأخبار -->
         <div id="news-container" class="news-grid">
-            <!-- سيتم تحميل الأخبار هنا -->
+            <!-- سيتم ملء الأخبار هنا بواسطة JavaScript -->
         </div>
     </main>
 
+    <!-- نافذة إدارة المصادر -->
+    <div id="sources-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ إدارة مصادر الأخبار</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="add-source-form">
+                    <h3>إضافة مصدر جديد</h3>
+                    <div class="form-group">
+                        <input type="text" id="source-name" placeholder="اسم المصدر">
+                        <input type="url" id="source-url" placeholder="رابط RSS">
+                        <input type="text" id="source-category" placeholder="التصنيف">
+                        <button id="add-source-btn" class="btn primary">إضافة</button>
+                    </div>
+                </div>
+                
+                <div class="sources-list-container">
+                    <h3>المصادر الحالية</h3>
+                    <div id="sources-list" class="sources-list">
+                        <!-- سيتم ملء قائمة المصادر هنا -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
-            <p>&copy; 2025 مجمع الأخبار العربية - تم إنشاؤه باستخدام RSS</p>
+            <p>© 2025 مجمع الأخبار العربية - تم إنشاؤه باستخدام RSS | 
+               <span id="news-count">0</span> خبر متاح | 
+               آخر تحديث: <span id="last-update">--</span>
+            </p>
         </div>
     </footer>
 
