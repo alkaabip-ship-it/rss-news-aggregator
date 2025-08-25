@@ -53,7 +53,9 @@ const RSS_FEEDS = [
     { name: 'العربية - السعودية اليوم', url: 'https://www.alarabiya.net/feed/rss2/ar/saudi-today.xml', category: 'السعودية' },
     { name: 'العربية - منوعات', url: 'https://www.alarabiya.net/feed/rss2/ar/variety.xml', category: 'منوعات' },
     { name: 'النهار', url: 'https://www.annahar.com/rss', category: 'لبنان' },
-    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9', category: 'أخبار دولية' }  { name: 'مصدر متنوع 10', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'متنوع' }
+    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cab9', category: 'أخبار دولية' } 
+    
+
 ];
 
 let allNews = [];
