@@ -3,14 +3,14 @@
 
 const RSS_FEEDS = [
     // مصادر الأخبار العربية الرئيسية
-    { name: 'فرانس٢٤', url: 'https://www.france24.com/ar/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7/rss
+    { name: 'فرانس٢٢٤', url: 'https://www.france24.com/ar/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7/rss
 ', category: 'عام' },
-    { name: 'فرانس٢٤', url: 'https://www.france24.com/ar/%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7/rss
+    { name: 'فرانس٢١٤', url: 'https://www.france24.com/ar/%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7/rss
 ', category: 'عام' },
-    { name: 'فرانس٢٤', url: 'https://www.france24.com/ar/%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7/rss
+    { name: 'فرانس٢٣٤', url: 'https://www.france24.com/ar/%D8%A3%D9%85%D8%B1%D9%8A%D9%83%D8%A7/rss
 ', category: 'عام' },
     { name: 'سكاي نيوز عربية', url: 'https://www.skynewsarabia.com/rss', category: 'عام' },
-    { name: 'فرانس٢٤', url: 'https://www.france24.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss
+    { name: 'فرانس٢٤٤', url: 'https://www.france24.com/ar/%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF/rss
 ', category: 'إماراتي' },
     { name: 'البيان', url: 'https://www.albayan.ae/rss', category: 'إماراتي' },
     { name: 'الخليج', url: 'https://www.alkhaleej.ae/rss', category: 'إماراتي' },
