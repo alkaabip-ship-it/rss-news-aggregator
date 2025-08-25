@@ -3,7 +3,7 @@
 
 const RSS_FEEDS = [
     // مصادر الأخبار العربية الرئيسية
-    { name: 'الجزيرة نت', url: 'https://www.aljazeera.net/rss/all', category: 'عام' },
+    { name: 'الجزيرة نت', url: 'https://rss.app/feeds/uQEMMhi6mvRm1dAE.xml', category: 'عام' },
     { name: 'العربية نت', url: 'https://www.alarabiya.net/rss.xml', category: 'عام' },
     { name: 'بي بي سي عربي', url: 'https://feeds.bbci.co.uk/arabic/rss.xml', category: 'عام' },
     { name: 'سكاي نيوز عربية', url: 'https://www.skynewsarabia.com/rss', category: 'عام' },
