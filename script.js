@@ -331,6 +331,13 @@ function exportToPDF() {
                 .news-description { line-height: 1.6; }
             </style>
         </head>
+            <!-- Firebase Configuration -->
+    <script type="module" src="firebase-config.js"></script>
+
+                    <button id="manageSourcesBtn" class="btn btn-secondary">
+                    <i class="fas fa-database"></i> مصادري المخصصة
+                </button>
+                
         <body>
             <div class="header">
                 <h1>📰 تقرير الأخبار اليومي</h1>
@@ -347,6 +354,53 @@ function exportToPDF() {
                 </div>
             `).join('')}
         </body>
+        
+    <!-- Custom Sources Management Modal -->
+    <div id="customSourcesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-database"></i> إدارة المصادر المخصصة</h2>
+                <span class="close" id="closeCustomSourcesModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Add New Source Form -->
+                <div class="add-source-form">
+                    <h3>إضافة مصدر جديد</h3>
+                    <div class="form-group">
+                        <label for="sourceName">اسم المصدر:</label>
+                        <input type="text" id="sourceName" placeholder="مثال: صحيفة الرياض">
+                    </div>
+                    <div class="form-group">
+                        <label for="sourceUrl">RSS URL:</label>
+                        <input type="url" id="sourceUrl" placeholder="https://example.com/rss">
+                    </div>
+                    <div class="form-group">
+                        <label for="sourceCategory">الفئة:</label>
+                        <select id="sourceCategory">
+                            <option value="عام">عام</option>
+                            <option value="أخبار">أخبار</option>
+                            <option value="رياضة">رياضة</option>
+                            <option value="اقتصاد">اقتصاد</option>
+                            <option value="تقنية">تقنية</option>
+                            <option value="منوعات">منوعات</option>
+                        </select>
+                    </div>
+                    <button id="addCustomSourceBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> إضافة المصدر
+                    </button>
+                </div>
+
+                <!-- Custom Sources List -->
+                <div class="custom-sources-list">
+                    <h3>مصادري المخصصة</h3>
+                    <div id="customSourcesList" class="sources-grid">
+                        <div class="loading-message">جاري تحميل المصادر...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
         </html>
     `;
     
