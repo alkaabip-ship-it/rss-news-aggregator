@@ -187,6 +187,7 @@ select:focus {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .news-card:hover {
@@ -199,6 +200,11 @@ select:focus {
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image {
+    transform: scale(1.05);
 }
 
 .news-content {
@@ -227,6 +233,10 @@ select:focus {
     line-height: 1.6;
     margin-bottom: 1rem;
     font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .news-meta {
@@ -244,18 +254,24 @@ select:focus {
 .news-source {
     font-weight: 600;
     color: #667eea;
-}
-
-.news-category {
     background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
     padding: 0.25rem 0.5rem;
     border-radius: 12px;
     font-size: 0.8rem;
 }
 
+.news-category {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
 .news-date {
     color: #999;
+    font-size: 0.8rem;
 }
 
 /* Modal Styles */
@@ -402,10 +418,35 @@ footer {
     border-radius: 15px;
     color: #666;
     font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 2rem 0;
 }
 
 .error-message {
     color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+}
+
+.no-news {
+    color: #667eea;
+    border-left: 4px solid #667eea;
+}
+
+.no-news::before {
+    content: "📰";
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.error-message::before {
+    content: "⚠️";
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
 }
 
 /* Responsive Design */
