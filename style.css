@@ -215,11 +215,14 @@ select:focus {
 .news-title a {
     color: #2c3e50;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
 .news-title a:hover {
     color: #667eea;
+    border-bottom: 2px solid #667eea;
+    text-decoration: none;
 }
 
 .news-description {
@@ -239,6 +242,7 @@ select:focus {
     color: #888;
     border-top: 1px solid #eee;
     padding-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .news-source {
@@ -248,6 +252,42 @@ select:focus {
 
 .news-category {
     background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.news-date {
+    color: #999;
+}
+
+/* News Actions */
+.news-actions {
+    margin-top: 1rem;
+}
+
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.read-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    text-decoration: none;
+    color: white;
+}
     color: #667eea;
     padding: 0.25rem 0.5rem;
     border-radius: 12px;

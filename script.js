@@ -99,6 +99,33 @@ function setupEventListeners() {
     });
 }
 
+// Add test data for demonstration when feeds fail
+function addTestDataIfNeeded() {
+    const testNews = [
+        {
+            title: 'عاجل: أخبار مهمة من المنطقة العربية',
+            description: 'هذا نص تجريبي لعرض كيفية ظهور الأخبار في الموقع. يمكن النقر على العنوان للانتقال إلى المقال الأصلي، ولكن المشكلة أن الرابط غير واضح للمستخدمين.',
+            link: 'https://example.com/news1',
+            pubDate: new Date(),
+            source: 'مصدر تجريبي',
+            category: 'عام',
+            imageUrl: null
+        },
+        {
+            title: 'تطورات اقتصادية جديدة في المنطقة',
+            description: 'خبر تجريبي آخر لعرض المشكلة. الروابط موجودة في العناوين ولكنها غير واضحة بما فيه الكفاية للمستخدمين.',
+            link: 'https://example.com/news2',
+            pubDate: new Date(Date.now() - 3600000),
+            source: 'مصدر آخر',
+            category: 'اقتصاد',
+            imageUrl: null
+        }
+    ];
+    
+    allNews = testNews;
+    filteredNews = [...allNews];
+}
+
 function populateCategoryFilter() {
     const categories = ['الكل', ...new Set(RSS_FEEDS.map(feed => feed.category))];
     categoryFilter.innerHTML = '';
@@ -131,9 +158,14 @@ async function loadNews() {
             }
         });
         
-        // Filter news from last 24 hours
-        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        allNews = allNews.filter(news => new Date(news.pubDate) > twentyFourHoursAgo);
+        // If no feeds loaded successfully, use test data
+        if (allNews.length === 0) {
+            addTestDataIfNeeded();
+        } else {
+            // Filter news from last 24 hours
+            const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+            allNews = allNews.filter(news => new Date(news.pubDate) > twentyFourHoursAgo);
+        }
         
         filterNews();
         
@@ -254,13 +286,18 @@ function displayNews() {
             ${news.imageUrl ? `<img src="${news.imageUrl}" alt="${news.title}" class="news-image" onerror="this.style.display='none'">` : ''}
             <div class="news-content">
                 <h3 class="news-title">
-                    <a href="${news.link}" target="_blank">${news.title}</a>
+                    <a href="${news.link}" target="_blank" rel="noopener">${news.title}</a>
                 </h3>
                 <p class="news-description">${news.description}</p>
                 <div class="news-meta">
                     <span class="news-source">${news.source}</span>
                     <span class="news-category">${news.category}</span>
                     <span class="news-date">${formatDate(news.pubDate)}</span>
+                </div>
+                <div class="news-actions">
+                    <a href="${news.link}" target="_blank" rel="noopener" class="read-more-btn">
+                        🔗 اقرأ المقال كاملاً
+                    </a>
                 </div>
             </div>
         </article>
@@ -327,8 +364,11 @@ function exportToPDF() {
                 .header { text-align: center; margin-bottom: 30px; }
                 .news-item { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; }
                 .news-title { font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+                .news-title a { color: #2c3e50; text-decoration: none; }
                 .news-meta { font-size: 12px; color: #666; margin-bottom: 10px; }
-                .news-description { line-height: 1.6; }
+                .news-description { line-height: 1.6; margin-bottom: 10px; }
+                .news-link { font-size: 12px; color: #667eea; margin-top: 10px; }
+                .news-link a { color: #667eea; text-decoration: none; }
             </style>
         </head>
             <!-- Firebase Configuration -->
@@ -346,11 +386,16 @@ function exportToPDF() {
             </div>
             ${filteredNews.map(news => `
                 <div class="news-item">
-                    <div class="news-title">${news.title}</div>
+                    <div class="news-title">
+                        <a href="${news.link}" target="_blank">${news.title}</a>
+                    </div>
                     <div class="news-meta">
                         المصدر: ${news.source} | التصنيف: ${news.category} | التاريخ: ${formatDate(news.pubDate)}
                     </div>
                     <div class="news-description">${news.description}</div>
+                    <div class="news-link">
+                        <a href="${news.link}" target="_blank">🔗 رابط المقال: ${news.link}</a>
+                    </div>
                 </div>
             `).join('')}
         </body>
